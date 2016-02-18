@@ -6,11 +6,12 @@ var height = 800;
 var svg = d3.select("body").append("svg")
   .attr("width", width)
   .attr("height", height)
-  .style('background-color', '#efefef');
+  .style('background', 'linear-gradient(skyblue, white)');
 
 var nodes = {};
 var links = [];
 
+// Get submitted link's hostname only
 function getHostname(url) {
   var urlElement = document.createElement('a');
   urlElement.href = url;
@@ -18,53 +19,52 @@ function getHostname(url) {
 }
 
 d3.json('http://www.freecodecamp.com/news/hot', function(data) {
-  
   // Create links array 
   data.forEach(function(d) {
     var link = {
       source: d.author.username,
       target: getHostname(d.link),
       rank: d.rank,
-      image: d.image,
+      image: d.author.picture,
       upvotes: d.upVotes.length
     };
     links.push(link);
   });
-
-  // console.log(links);
   
   // Create nodes
   links.forEach(function(link) {
-    // console.log(link);
+    // if (!link.image) { console.log(link.source, link.image);}
+
     link.source = nodes[link.source] ||
       (nodes[link.source] = {
-        nodeText: link.source,
+        nodeText: link.source, // text(name/url) for tooltip
         rank: link.rank,
         upvotes: link.upvotes,
         image: link.image
       });
     link.target = nodes[link.target] ||
       (nodes[link.target] = {
-        nodeText: link.target
+        nodeText: link.target // text(name/url) for tooltip
       });
   });
   
-  // console.log(nodes);
-
+  // Set up force layout
   var force = d3.layout.force()
       .nodes(d3.values(nodes))
       .links(links)
       .size([width, height])
-      .linkDistance(40)
-      .charge(-150)
+      .linkDistance(50)
+      .charge(-130)
       .on("tick", tick)
       .start();
-
+  
+  // Append Link
   var link = svg.selectAll(".link")
-      .data(force.links())
+    .data(force.links())
     .enter().append("line")
-      .attr("class", "link");
-
+    .attr("class", "link");
+  
+  // Append Node
   var node = svg.selectAll(".node")
     .data(force.nodes())
     .enter().append("g")
@@ -101,20 +101,40 @@ d3.json('http://www.freecodecamp.com/news/hot', function(data) {
   // of connections (weight of the node)
   node.append("circle")
     .attr("r", function(d) {
-      return d.weight + 5;
-    });
+      if (d.weight === 1) {
+        return 4;
+      }
+      if (d.weight === 2) {
+        return 5
+      }
+      return d.weight * 2;
+    })
+    .attr('fill', '#FF99FF');
   
+  // Append author picture
+  node
+    .append('image')
+    .attr("xlink:href", function(d){
+      return d.image;
+    })
+    .attr({
+      x: -15,
+      y: -15,
+      "width": 32,
+      "height": 32,
+    });
+
   // Define corrdinates of links and nodes
   function tick() {
     link
-        .attr("x1", function(d) { return d.source.x; })
-        .attr("y1", function(d) { return d.source.y; })
-        .attr("x2", function(d) { return d.target.x; })
-        .attr("y2", function(d) { return d.target.y; });
+      .attr("x1", function(d) { return d.source.x; })
+      .attr("y1", function(d) { return d.source.y; })
+      .attr("x2", function(d) { return d.target.x; })
+      .attr("y2", function(d) { return d.target.y; });
 
     node
-        .attr("transform", function(d) {
-          return "translate(" + d.x + "," + d.y + ")"; 
-        });
+      .attr("transform", function(d) {
+        return "translate(" + d.x + "," + d.y + ")"; 
+      });
   }
 });

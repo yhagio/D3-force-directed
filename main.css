@@ -36,11 +36,6 @@ body {
   font-weight: bold;
 }
 
-
-
-
-
-
 /* Tooltip */
 #tooltip {
   opacity: 0;
@@ -61,23 +56,16 @@ body {
   color: #fff;
 }
 
-
-
-
-
-
+/* Link lines */
 .link {
   fill: none;
   stroke: #666;
   stroke-width: 1.5px;
 }
 
+/* Node circle */
 .node circle {
-  fill: #ccc;
+  /*fill: #a2c;*/
   stroke: #fff;
   stroke-width: 1.5px;
-}
-
-text {
-  font-size: 0.7em;
 }
