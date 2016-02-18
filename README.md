@@ -1,5 +1,8 @@
 ### Force Directed Relationship Map using D3
 
+You can see the relationship between campers(people) and links(hostname)
+that are submitted by them on FreeCodeCamp News
+
 # [DEMO](http://yhagio.github.io/D3-force-directed)
 
 ![Screenshot](/SCR.png)
