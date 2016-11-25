@@ -4,6 +4,7 @@ body {
   text-align: center;
   font-family: sans-serif;
   color: #555;
+  background-color: #fff;
 }
 
 /* Header Part */
@@ -64,8 +65,31 @@ body {
 }
 
 /* Node circle */
+.node {
+  fill: #ccc;
+  stroke: #fff;
+  stroke-width: 1px;
+}
+
 .node circle {
   /*fill: #a2c;*/
   stroke: #fff;
   stroke-width: 1.5px;
+}
+
+/* Graph */
+.graph {
+  width: 800px;
+	height: 700px;
+	margin: auto;
+  box-shadow: 0 0 -30px #aaa;
+}
+
+/* Flags */
+.flags {
+  position: absolute;
+}
+
+.flag {
+	position: absolute;
 }

@@ -3,23 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="flags.css" media="screen">
   <link rel="stylesheet" href="main.css" media="screen">
-  <title>FCC-ForceDirected</title>
+  <title>Force Directed Graph</title>
 </head>
 <body>
   <div>
     <h2 class='title'>D3 Force Directed Graph</h2>
-    <p class='details'>This shows people posting links on a forum at FreeCodeCamp</p>
+    <p class='details'>Graph of State Contiguity</p>
     <p class='createdBy'>
       Built with <img src="images/iconmonstr-favorite-4-icon-24.png" alt="heart" class="heartImage">by <a href="https://github.com/yhagio" class="nameLink" target="_blank">Yuichi Hagio</a>
     </p>
   </div>
 
-  <div id="tooltip">
-    <p id="value"></p>
+  <div id="graph" class="graph">
+    <div id="flags" class="flags"></div>
+    <div id="tooltip">
+      <p id="value"></p>
+    </div>
   </div>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.15/d3.js"></script>
-  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.13/d3.min.js"></script> -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.16/d3.js"></script>
   <script src="main.js"></script>
 </body>
 </html>
