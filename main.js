@@ -56,8 +56,9 @@ d3.json(dataSource, function(data) {
       
       // Tooltip
       d3.select('#tooltip')
-        .style("left", (d.x + 10) + "px")
-        .style("top", d.y + 30 + "px")
+
+        .style("left", event.clientX + "px")
+        .style("top", event.clientY - 50 + "px")
         .select("#value")
           .html('<strong class="nodeText">' + d.country + '</strong>');
     })
